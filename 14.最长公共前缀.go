@@ -10,24 +10,25 @@ func longestCommonPrefix(strs []string) string {
 		return ""
 	}
 
-	lenMin := math.MaxInt64
-	for _, v := range strs {
-		if lenMin > len(v) {
-			lenMin = len(v)
-		}
-	}
-
-	commonStr := ""
-
-	for i := 0; i < lenMin; i++ {
-		for _, v := range strs {
-			if v[i] != commonStr {
-				
+	commonStr := strs[0]
+	for i := 1; i < len(strs); i++ {
+		j := 0
+		curStr := strs[i]
+		for {
+			if j == len(curStr) || j == len(commonStr) {
+				if len(curStr) < len(commonStr) {
+					commonStr = curStr
+				}
+				break
 			}
+			if curStr[j] != commonStr[j] {
+				commonStr = commonStr[:j]
+				break
+			}
+			j++
 		}
-		commonStr = 
 	}
-	return ""
+	return commonStr
 }
 
 // @lc code=end

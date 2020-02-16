@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 type ListNode struct {
@@ -36,57 +35,60 @@ func isVowels(l string) bool {
 
 // @lc code=end
 
-type A struct {
-	bb int
-}
+var ret = []string{}
 
-func findUnsortedSubarray(nums []int) int {
-	temp := make([]int, len(nums))
-	copy(temp, nums)
-	sort.Ints(temp)
-	begin := -1
-	end := -1
-	i, j := 0, len(nums)-1
+func hammingWeight(num uint32) int {
+	count := 0
 	for {
-		if begin >= 0 && end >= 0 {
+		if num == 0 {
 			break
 		}
-		if i > j {
-			break
-		}
-		if nums[i] != temp[i] {
-			begin = i
-		}
-		if begin < 0 {
-			i++
-		}
-
-		if nums[j] != temp[j] {
-			end = j
-		}
-		if end < 0 {
-			j--
-		}
+		num = num & (num - 1)
+		count++
 	}
-	if begin < 0 || end < 0 {
-		return 0
-	}
-	return end - begin + 1
+	return count
 }
 
 func main() {
+	fmt.Println(hammingWeight(3))
+
+	// h := &IntHeap{4, 5, 8, 2}
+	// heap.Init(h)
+	// heap.Push(h, 3)
+	// heap.Fix(h, 3)
+	// fmt.Printf("minimum: %d\n", (*h)[0])
+	// for h.Len() > 0 {
+	// 	fmt.Printf("%d ", heap.Pop(h))
+	// }
+
+	// obj := Constructor(2, []int{0})
+	// fmt.Println(obj.cost)
+	// param_1 := obj.Add(-1)
+	// fmt.Println(param_1)
+	// param_1 = obj.Add(1)
+	// fmt.Println(param_1)
+	// param_1 = obj.Add(10)
+	// fmt.Println(param_1)
+	// param_1 = obj.Add(-4)
+	// fmt.Println(param_1)
+	// param_1 = obj.Add(3)
+	// fmt.Println(param_1)
+
+	// fmt.Println(obj.cost)
+
 	// 1804289383
-	fmt.Println(findUnsortedSubarray([]int{1, 2}))
-
+	// fmt.Println(findShortestSubArray([]int{1, 2}))
+	// fmt.Println(hasAlternatingBits(5))
 	// nodeG := TreeNode{Val: 7, Left: nil, Right: nil}
-	// nodeF := TreeNode{Val: 4, Left: nil, Right: nil}
-	// nodeE := TreeNode{Val: 1, Left: nil, Right: nil}
-	// nodeD := TreeNode{Val: 2, Left: &nodeE, Right: nil}
-	// nodeC := TreeNode{Val: 7, Left: nil, Right: nil}
-	// nodeB := TreeNode{Val: 3, Left: &nodeD, Right: &nodeF}
-	// nodeA := TreeNode{Val: 5, Left: &nodeB, Right: &nodeC}
 
-	// fmt.Println(diameterOfBinaryTree(&nodeA))
+	// nodeF := TreeNode{Val: 6, Left: nil, Right: nil}
+	// nodeE := TreeNode{Val: 5, Left: nil, Right: nil}
+	// nodeD := TreeNode{Val: 4, Left: nil, Right: nil}
+	// nodeC := TreeNode{Val: 3, Left: nil, Right: &nodeF}
+	// nodeB := TreeNode{Val: 2, Left: &nodeD, Right: &nodeE}
+	// nodeA := TreeNode{Val: 1, Left: &nodeB, Right: &nodeC}
+
+	// fmt.Println(minDiffInBST(&nodeA))
 
 	// nodeD := &ListNode{Val: 1, Next: nil}
 
