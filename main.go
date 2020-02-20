@@ -37,20 +37,28 @@ func isVowels(l string) bool {
 
 var ret = []string{}
 
-func hammingWeight(num uint32) int {
-	count := 0
-	for {
-		if num == 0 {
-			break
-		}
-		num = num & (num - 1)
-		count++
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	l := 0
+	node := head
+	root := ListNode{Next: head}
+	nodeList := []ListNode{root}
+	for node != nil {
+		l++
+		nodeList = append(nodeList, *node)
+		node = node.Next
 	}
-	return count
+
+	for k, _ := range nodeList {
+		if l-k+1 == n || k == 0 {
+			continue
+		}
+		nodeList[k-1].Next = &nodeList[k]
+	}
+	return &nodeList[1]
 }
 
 func main() {
-	fmt.Println(hammingWeight(3))
+	// fmt.Println(hammingWeight(3))
 
 	// h := &IntHeap{4, 5, 8, 2}
 	// heap.Init(h)
@@ -90,10 +98,9 @@ func main() {
 
 	// fmt.Println(minDiffInBST(&nodeA))
 
-	// nodeD := &ListNode{Val: 1, Next: nil}
-
-	// nodeC := &ListNode{Val: 2, Next: nodeD}
-	// nodeB := &ListNode{Val: 3, Next: nodeC}
-	// nodeA := &ListNode{Val: 1, Next: nodeB}
-	// fmt.Println(isPalindrome(nodeA))
+	nodeD := &ListNode{Val: 4, Next: nil}
+	nodeC := &ListNode{Val: 3, Next: nodeD}
+	nodeB := &ListNode{Val: 2, Next: nodeC}
+	nodeA := &ListNode{Val: 1, Next: nodeB}
+	fmt.Println(removeNthFromEnd(nodeA, 4))
 }
