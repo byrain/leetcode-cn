@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"math"
+	"sort"
 )
 
 type ListNode struct {
@@ -37,28 +39,40 @@ func isVowels(l string) bool {
 
 var ret = []string{}
 
-func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	l := 0
-	node := head
-	root := ListNode{Next: head}
-	nodeList := []ListNode{root}
-	for node != nil {
-		l++
-		nodeList = append(nodeList, *node)
-		node = node.Next
+func threeSumClosest(nums []int, target int) int {
+	ret := 0
+	if len(nums) < 3 {
+		return ret
+	}
+	distance := math.MaxInt32
+	sort.Ints(nums)
+
+	for i := 0; i < len(nums)-2; i++ {
+		j := i + 1
+		k := len(nums) - 1
+		for j < k {
+			sum := nums[i] + nums[j] + nums[k]
+			if sum == target {
+				return sum
+			}
+			absDistance := int(math.Abs(float64(target - sum)))
+			if absDistance <= distance {
+				distance = absDistance
+				ret = sum
+			}
+			if sum < target {
+				j++
+			} else {
+				k--
+			}
+		}
 	}
 
-	for k, _ := range nodeList {
-		if l-k+1 == n || k == 0 {
-			continue
-		}
-		nodeList[k-1].Next = &nodeList[k]
-	}
-	return &nodeList[1]
+	return ret
 }
 
 func main() {
-	// fmt.Println(hammingWeight(3))
+	fmt.Println(threeSumClosest([]int{1, 2, 4, 16, 64}, 82))
 
 	// h := &IntHeap{4, 5, 8, 2}
 	// heap.Init(h)
