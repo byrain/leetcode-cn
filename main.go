@@ -26,12 +26,12 @@ func printNodeList(head *ListNode) {
 	}
 }
 
-func isVowels(l string) bool {
-	if l == "a" || l == "e" || l == "i" || l == "o" || l == "u" || l == "A" || l == "E" || l == "I" || l == "O" || l == "U" {
-		return true
-	}
-	return false
-}
+// func isVowels(l string) bool {
+// 	if l == "a" || l == "e" || l == "i" || l == "o" || l == "u" || l == "A" || l == "E" || l == "I" || l == "O" || l == "U" {
+// 		return true
+// 	}
+// 	return false
+// }
 
 // @lc code=end
 
@@ -69,6 +69,44 @@ func main() {
 	fmt.Println(minPathSum([][]int{[]int{1, 3, 1}, []int{1, 5, 1}, []int{4, 2, 1}}))
 	// fmt.Println(permute([]int{1, 2, 3, 4}))
 	// fmt.Println(combinationSum([]int{2, 3, 6, 7}, 7))
+=======
+var ret = []string{}
+
+func threeSumClosest(nums []int, target int) int {
+	ret := 0
+	if len(nums) < 3 {
+		return ret
+	}
+	distance := math.MaxInt32
+	sort.Ints(nums)
+
+	for i := 0; i < len(nums)-2; i++ {
+		j := i + 1
+		k := len(nums) - 1
+		for j < k {
+			sum := nums[i] + nums[j] + nums[k]
+			if sum == target {
+				return sum
+			}
+			absDistance := int(math.Abs(float64(target - sum)))
+			if absDistance <= distance {
+				distance = absDistance
+				ret = sum
+			}
+			if sum < target {
+				j++
+			} else {
+				k--
+			}
+		}
+	}
+
+	return ret
+}
+
+func main() {
+	fmt.Println(threeSumClosest([]int{1, 2, 4, 16, 64}, 82))
+>>>>>>> 48b2b2f59f4544b74b8680e4c5d166136e2282e2
 
 	// h := &IntHeap{4, 5, 8, 2}
 	// heap.Init(h)
