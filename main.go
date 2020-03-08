@@ -35,78 +35,65 @@ func printNodeList(head *ListNode) {
 
 // @lc code=end
 
-// var ret = []string{}
+var ret [][]int
 
-var nums [][]int
+func levelOrder(root *TreeNode) [][]int {
+	ret = [][]int{}
 
-func minPathSum(grid [][]int) int {
-	m := len(grid)
-	n := len(grid[0])
-	for i := 0; i < m; i++ {
-		for j := 0; j < n; j++ {
-			if i == 0 && j != 0 {
-				grid[0][j] = grid[0][j-1] + grid[0][j]
-			}
-			if i != 0 && j == 0 {
-				grid[i][0] = grid[i-1][0] + grid[i][0]
-			}
-		}
-	}
-
-	for i := 1; i < m; i++ {
-		for j := 1; j < n; j++ {
-			if grid[i-1][j] < grid[i][j-1] {
-				grid[i][j] = grid[i-1][j] + grid[i][j]
-			} else {
-				grid[i][j] = grid[i][j-1] + grid[i][j]
-			}
-		}
-	}
-	return grid[m-1][n-1]
-}
-
-func main() {
-	fmt.Println(minPathSum([][]int{[]int{1, 3, 1}, []int{1, 5, 1}, []int{4, 2, 1}}))
-	// fmt.Println(permute([]int{1, 2, 3, 4}))
-	// fmt.Println(combinationSum([]int{2, 3, 6, 7}, 7))
-=======
-var ret = []string{}
-
-func threeSumClosest(nums []int, target int) int {
-	ret := 0
-	if len(nums) < 3 {
+	if root == nil {
 		return ret
 	}
-	distance := math.MaxInt32
-	sort.Ints(nums)
-
-	for i := 0; i < len(nums)-2; i++ {
-		j := i + 1
-		k := len(nums) - 1
-		for j < k {
-			sum := nums[i] + nums[j] + nums[k]
-			if sum == target {
-				return sum
-			}
-			absDistance := int(math.Abs(float64(target - sum)))
-			if absDistance <= distance {
-				distance = absDistance
-				ret = sum
-			}
-			if sum < target {
-				j++
-			} else {
-				k--
+	ret = append(ret, []int{root.Val})
+	nodes := []*TreeNode{root.Left, root.Right}
+	for len(nodes) > 0 {
+		val := []int{}
+		size := len(nodes)
+		for i := 0; i < size; i++ {
+			node := nodes[i]
+			if node != nil {
+				val = append(val, node.Val)
+				nodes = append(nodes, node.Left)
+				nodes = append(nodes, node.Right)
 			}
 		}
+		nodes = nodes[size:]
+		if len(val) > 0 {
+			ret = append(ret, val)
+		}
 	}
-
 	return ret
 }
 
+// size := len(s)
+// if size == 0 {
+// 	return 0
+// }
+
+// dp := make([]int, len(s)+1)
+
+// if s == "0" {
+// 	return 0
+// }
+// dp[0] = 1
+// for i := 1; i < size+1; i++ {
+// 	t := int(s[i-1]) - 48
+// 	fmt.Println(t)
+// 	if t != 0 {
+// 		dp[i] = dp[i-1]
+// 	}
+// 	if i >= 2 {
+// 		t = (int(s[i-2])-48)*10 + (int(s[i-1]) - 48)
+// 		if t >= 10 && t <= 26 {
+// 			dp[i] += dp[i-2]
+// 		}
+// 	}
+// 	fmt.Println(dp)
+// }
+// return dp[len(dp)-1]
+
 func main() {
-	fmt.Println(threeSumClosest([]int{1, 2, 4, 16, 64}, 82))
->>>>>>> 48b2b2f59f4544b74b8680e4c5d166136e2282e2
+	// combine([]int{2, 0, 2, 1, 1, 0})
+	// fmt.Println(numDecodings("12"))
 
 	// h := &IntHeap{4, 5, 8, 2}
 	// heap.Init(h)
@@ -137,20 +124,21 @@ func main() {
 	// fmt.Println(hasAlternatingBits(5))
 	// nodeG := TreeNode{Val: 7, Left: nil, Right: nil}
 
-	// nodeF := TreeNode{Val: 6, Left: nil, Right: nil}
-	// nodeE := TreeNode{Val: 5, Left: nil, Right: nil}
-	// nodeD := TreeNode{Val: 4, Left: nil, Right: nil}
-	// nodeC := TreeNode{Val: 3, Left: nil, Right: &nodeF}
-	// nodeB := TreeNode{Val: 2, Left: &nodeD, Right: &nodeE}
-	// nodeA := TreeNode{Val: 1, Left: &nodeB, Right: &nodeC}
+	nodeF := TreeNode{Val: 6, Left: nil, Right: nil}
+	nodeE := TreeNode{Val: 5, Left: nil, Right: nil}
+	nodeD := TreeNode{Val: 4, Left: nil, Right: nil}
+	nodeC := TreeNode{Val: 3, Left: nil, Right: &nodeF}
+	nodeB := TreeNode{Val: 2, Left: &nodeD, Right: &nodeE}
+	nodeA := TreeNode{Val: 1, Left: &nodeB, Right: &nodeC}
 
-	// fmt.Println(minDiffInBST(&nodeA))
-
-	// nodeD := &ListNode{Val: 4, Next: nil}
-	// nodeC := &ListNode{Val: 3, Next: nodeD}
+	fmt.Println(levelOrder(&nodeA))
+	// nodeF := &ListNode{Val: 1, Next: nil}
+	// nodeE := &ListNode{Val: 3, Next: nodeF}
+	// nodeD := &ListNode{Val: 3, Next: nodeE}
+	// nodeC := &ListNode{Val: 2, Next: nodeD}
 	// nodeB := &ListNode{Val: 2, Next: nodeC}
-	// nodeA := &ListNode{Val: 1, Next: nodeB}
-	// root := rotateRight(nil, 1)
+	// nodeA := &ListNode{Val: 5, Next: nodeB}
+	// root := partition(nodeA, 3)
 	// for root != nil {
 	// 	fmt.Println(root.Val)
 	// 	root = root.Next
