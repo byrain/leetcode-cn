@@ -6,7 +6,7 @@
 
 // @lc code=start
 /**
- * Definition for a binary tree node.
+ * Definition for a binary tree root.
  * type TreeNode struct {
  *     Val int
  *     Left *TreeNode
@@ -16,9 +16,24 @@
 var ret []int
 
 func inorderTraversal(root *TreeNode) []int {
-	ret = []int{}
-	traversal(root)
+	// ret = []int{}
+	// traversal(root)
 
+	// return ret
+	ret := []int{}
+	stack := []*TreeNode{}
+	for root != nil || len(stack) != 0 {
+		for root != nil {
+			stack = append(stack, root)
+			root = root.Left
+		}
+		if len(stack) != 0 {
+			n := stack[len(stack)-1]
+			ret = append(ret, n.Val)
+			root = n.Right
+			stack = stack[:len(stack)-1]
+		}
+	}
 	return ret
 }
 
