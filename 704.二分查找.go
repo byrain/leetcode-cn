@@ -8,7 +8,7 @@
 func search(nums []int, target int) int {
 	left, right := 0, len(nums)-1
 	for left <= right {
-		pivot := left + (right-left)/2
+		pivot := (left + right) / 2
 		if nums[pivot] == target {
 			return pivot
 		}

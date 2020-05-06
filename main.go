@@ -30,7 +30,7 @@ func printNodeList(head *ListNode) {
 }
 
 // func isVowels(l string) bool {
-// 	if l == "a" || l == "e" || l == "i" || l == "o" || l == "u" || l == "A" || l == "E" || l == "I" || l == "O" || l == "U" {
+// 	if l == 'a' || l == 'e' || l == 'i' || l == 'o' || l == 'u' || l == 'A' || l == 'E' || l == 'I' || l == 'O' || l == 'U' {
 // 		return true
 // 	}
 // 	return false
@@ -62,6 +62,9 @@ func compressString(S string) string {
 	return string(ret)
 }
 
+// 	dfs('', n, n, &res)
+// 	return res
+// }
 // size := len(s)
 // if size == 0 {
 // 	return 0
@@ -69,7 +72,7 @@ func compressString(S string) string {
 
 // dp := make([]int, len(s)+1)
 
-// if s == "0" {
+// if s == '0' {
 // 	return 0
 // }
 // dp[0] = 1
@@ -278,9 +281,9 @@ func main() {
 	// heap.Init(h)
 	// heap.Push(h, 3)
 	// heap.Fix(h, 3)
-	// fmt.Printf("minimum: %d\n", (*h)[0])
+	// fmt.Printf('minimum: %d\n', (*h)[0])
 	// for h.Len() > 0 {
-	// 	fmt.Printf("%d ", heap.Pop(h))
+	// 	fmt.Printf('%d ', heap.Pop(h))
 	// }
 
 	// obj := Constructor(2, []int{0})
@@ -320,9 +323,23 @@ func main() {
 	// nodeC := &ListNode{Val: 2, Next: nodeD}
 	// nodeB := &ListNode{Val: 2, Next: nodeC}
 	// nodeA := &ListNode{Val: 5, Next: nodeB}
-	// root := partition(nodeA, 3)
+	// root := mergeKLists([]ListNode{nodeA})
 	// for root != nil {
 	// 	fmt.Println(root.Val)
 	// 	root = root.Next
 	// }
+	// nodeF := TreeNode{Val: 6, Left: nil, Right: nil}
+	// nodeE := TreeNode{Val: 5, Left: nil, Right: nil}
+	// nodeD := TreeNode{Val: 4, Left: nil, Right: nil}
+	// nodeC := TreeNode{Val: 3, Left: nil, Right: &nodeF}
+	// nodeB := TreeNode{Val: 2, Left: &nodeD, Right: &nodeE}
+	// nodeA := TreeNode{Val: 1, Left: &nodeB, Right: &nodeC}
+
+	// fmt.Println(rightSideView(&nodeA))
+
+	// nodeD := &ListNode{Val: 4, Next: nil}
+	// nodeC := &ListNode{Val: 3, Next: nodeD}
+	// nodeB := &ListNode{Val: 2, Next: nodeC}
+	// nodeA := &ListNode{Val: 1, Next: nodeB}
+	// fmt.Println(removeNthFromEnd(nodeA, 4))
 }
