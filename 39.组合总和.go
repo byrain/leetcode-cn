@@ -13,30 +13,28 @@ var ret [][]int
 func combinationSum(candidates []int, target int) [][]int {
 	ret = [][]int{}
 	sort.Ints(candidates)
-	dfs(candidates, []int{}, target)
+	backtrace(candidates, []int{}, target)
 	return ret
 }
 
-func dfs(candidates []int, path []int, r int) {
-	if r == 0 {
+func backtrace(candidates []int, path []int, target int) {
+	if target == 0 {
 		pathTemp := make([]int, len(path))
 		copy(pathTemp, path)
 		ret = append(ret, pathTemp)
 		return
 	}
-	if r < 0 {
+	if target < 0 {
 		return
 	}
-	for _, v := range candidates {
-		if len(path) > 0 && v < path[len(path)-1] {
+	for i := 0; i < len(candidates); i++ {
+		if len(path) > 0 && candidates[i] < path[len(path)-1] {
 			continue
 		}
-
-		path = append(path, v)
-		dfs(candidates, path, r-v)
+		path = append(path, candidates[i])
+		backtrace(candidates, path, target-candidates[i])
 		path = path[:len(path)-1]
 	}
 }
 
 // @lc code=end
-

@@ -18,30 +18,27 @@ func permuteUnique(nums []int) [][]int {
 	ret = [][]int{}
 	used = make(map[int]bool, len(nums))
 	sort.Ints(nums)
-	dfs(nums, []int{})
+	backtrace(nums, []int{})
 	return ret
 }
 
-func dfs(nums, path []int) {
-	if len(nums) == len(path) {
-		newPath := make([]int, len(path))
-		copy(newPath, path)
-		ret = append(ret, newPath)
+func backtrace(nums, path []int) {
+	if len(path) == len(nums) {
+		tempPath := make([]int, len(nums))
+		copy(tempPath, path)
+		ret = append(ret, tempPath)
 		return
 	}
-
 	for i := 0; i < len(nums); i++ {
 		if used[i] {
 			continue
 		}
-
 		if i > 0 && nums[i] == nums[i-1] && !used[i-1] {
 			continue
 		}
-
-		path = append(path, nums[i])
 		used[i] = true
-		dfs(nums, path)
+		path = append(path, nums[i])
+		backtrace(nums, path)
 		used[i] = false
 		path = path[:len(path)-1]
 	}

@@ -24,7 +24,7 @@ func backtrace(nums, path []int) {
 	for i := 0; i < len(nums); i++ {
 		path = append(path, nums[i])
 		newNums := []int{}
-		newNums = append(newNums, nums[0:i]...)
+		newNums = append(newNums, nums[:i]...)
 		newNums = append(newNums, nums[i+1:]...)
 		backtrace(newNums, path)
 		path = path[:len(path)-1]

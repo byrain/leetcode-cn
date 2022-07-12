@@ -10,35 +10,40 @@ import (
 
 // @lc code=start
 var ret [][]int
+var used map[int]bool
 
 func combinationSum2(candidates []int, target int) [][]int {
 	ret = [][]int{}
+	used = map[int]bool{}
 	sort.Ints(candidates)
-	dfs(candidates, []int{}, target, 0)
+	backtrace(candidates, []int{}, target)
 	return ret
 }
 
-func dfs(candidates []int, path []int, r int, p int) {
-	if r == 0 {
+func backtrace(candidates []int, path []int, target int) {
+	if target == 0 {
 		pathTemp := make([]int, len(path))
 		copy(pathTemp, path)
 		ret = append(ret, pathTemp)
 		return
 	}
-	if r < 0 {
+	if target < 0 {
 		return
 	}
-	for k, v := range candidates {
-		if len(path) > 0 && k < p {
+	for i := 0; i < len(candidates); i++ {
+		if used[i] {
 			continue
 		}
-
-		if k > p && candidates[k] == candidates[k-1] {
+		if i > 0 && candidates[i] == candidates[i-1] && !used[i-1] {
 			continue
 		}
-
-		path = append(path, v)
-		dfs(candidates, path, r-v, k+1)
+		if len(path) > 0 && candidates[i] < path[len(path)-1] {
+			continue
+		}
+		path = append(path, candidates[i])
+		used[i] = true
+		backtrace(candidates, path, target-candidates[i])
+		used[i] = false
 		path = path[:len(path)-1]
 	}
 }
