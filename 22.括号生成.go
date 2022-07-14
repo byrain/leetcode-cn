@@ -5,60 +5,33 @@
  */
 
 // @lc code=start
+var ret []string
+
 func generateParenthesis(n int) []string {
-<<<<<<< Updated upstream
 	ret := []string{}
-	if n <= 0 {
-		return ret
-	}
-	dfs("", n, n, &ret)
+	backtracking(n, []byte{}, 0, 0)
 	return ret
 }
 
-func dfs(curString string, left, right int, ret *[]string) {
-	if left == 0 && right == 0 {
-		*ret = append(*ret, curString)
+func backtracking(n int, path []byte, leftBracket, rightBracket int) {
+	if len(path) == 2*n && leftBracket == rightBracket {
+		newPath := make([]byte, len(path))
+		copy(newPath, path)
+		ret = append(ret, string(newPath))
 		return
 	}
-
-=======
-	res := []string{}
-	if n == 0 {
-		return res
-	}
-
-	dfs("", n, n, &res)
-	return res
-}
-
-func dfs(curStr string, left, right int, res *[]string) {
-	// 因为每一次尝试，都使用新的字符串变量，所以无需回溯
-	// 在递归终止的时候，直接把它添加到结果集即可，注意与「力扣」第 46 题、第 39 题区分
-	if left == 0 && right == 0 {
-		*res = append(*res, curStr)
+	if leftBracket < rightBracket {
 		return
 	}
-
-	// 剪枝（如图，左括号可以使用的个数严格大于右括号可以使用的个数，才剪枝，注意这个细节）
->>>>>>> Stashed changes
-	if left > right {
-		return
+	if leftBracket < n {
+		path = append(path, '(')
+		backtracking(n, path, leftBracket+1, rightBracket)
+		path = path[:len(path)-1]
 	}
-
-	if left > 0 {
-<<<<<<< Updated upstream
-		dfs(curString+"(", left-1, right, ret)
-	}
-
-	if right > 0 {
-		dfs(curString+")", left, right-1, ret)
-=======
-		dfs(curStr+"(", left-1, right, res)
-	}
-
-	if right > 0 {
-		dfs(curStr+")", left, right-1, res)
->>>>>>> Stashed changes
+	if rightBracket < n {
+		path = append(path, ')')
+		backtracking(n, path, leftBracket, rightBracket+1)
+		path = path[:len(path)-1]
 	}
 }
 
