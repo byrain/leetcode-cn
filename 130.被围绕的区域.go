@@ -14,10 +14,6 @@ func solve(board [][]byte) {
 		dfs(board, 0, i)
 		dfs(board, len(board)-1, i)
 	}
-	for i := 1; i < len(board[0])-1; i++ {
-		dfs(board, 0, i)
-		dfs(board, len(board)-1, i)
-	}
 	for i := 0; i < len(board); i++ {
 		for j := 0; j < len(board[i]); j++ {
 			if board[i][j] == 'O' {

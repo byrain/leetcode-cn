@@ -5,42 +5,45 @@
  */
 
 // @lc code=start
-var direction = [][]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
-var ret bool
+// var direction = [][]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
+// var ret bool
 
 func exist(board [][]byte, word string) bool {
-	ret = false
+	// ret = false
 	for i := 0; i < len(board); i++ {
 		for j := 0; j < len(board[i]); j++ {
 			if board[i][j] == word[0] {
-				backtracking(board, word, i, j, 0)
+				if backtracking(board, word, i, j, 0) {
+					return true
+				}
 			}
 		}
 	}
-	return ret
+	return false
 }
 
-func backtracking(board [][]byte, word string, i, j, index int) {
+func backtracking(board [][]byte, word string, i, j, index int) bool {
 	if i < 0 || i >= len(board) {
-		return
+		return false
 	}
 	if j < 0 || (i < len(board) && j >= len(board[i])) {
-		return
+		return false
 	}
-
 	if board[i][j] != word[index] {
-		return
+		return false
 	}
 	if index == len(word)-1 && board[i][j] == word[index] {
-		ret = true
-		return
+		return true
 	}
-	for _, d := range direction {
-		board[i][j] += 100
-		backtracking(board, word, i+d[0], j+d[1], index+1)
-		board[i][j] -= 100
+	board[i][j] += 100
+	if backtracking(board, word, i+1, j, index+1) ||
+		backtracking(board, word, i-1, j, index+1) ||
+		backtracking(board, word, i, j+1, index+1) ||
+		backtracking(board, word, i, j-1, index+1) {
+		return true
 	}
-	return
+	board[i][j] -= 100
+	return false
 }
 
 // @lc code=end
