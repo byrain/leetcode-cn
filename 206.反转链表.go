@@ -13,19 +13,22 @@
  * }
  */
 func reverseList(head *ListNode) *ListNode {
-	var pre *ListNode
-	curr := head
-	nextTemp := head
-	for {
-		if curr != nil {
-			nextTemp = curr.Next
-			curr.Next = pre
-			pre = curr
-			curr = nextTemp
-		} else {
-			return pre
-		}
+	// var newHead *ListNode
+	// for head != nil {
+	// 	node := head.Next
+	// 	head.Next = newHead
+	// 	newHead = head
+	// 	head = node
+	// }
+	// return newHead
+
+	if head == nil || head.Next == nil {
+		return head
 	}
+	newHead := reverseList(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return newHead
 }
 
 // @lc code=end

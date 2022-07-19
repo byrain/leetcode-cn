@@ -16,27 +16,27 @@ func deleteDuplicates(head *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
-	root := &ListNode{
+	newHdead := &ListNode{
 		Next: head,
 	}
-	n1 := root
-	n2 := root.Next
-	for n2 != nil && n2.Next != nil {
-		if n2.Val == n2.Next.Val {
+	p1 := newHdead
+	p2 := newHdead.Next
+	for p2 != nil && p2.Next != nil {
+		if p2.Val != p2.Next.Val {
+			p1 = p2
+			p2 = p2.Next
+		} else {
 			for {
-				n2 = n2.Next
-				if n2 == nil || n2.Next == nil || n2.Val != n2.Next.Val {
-					n1.Next = n2.Next
-					n2 = n1.Next
+				p2 = p2.Next
+				if p2 == nil || p2.Next == nil || p2.Val != p2.Next.Val {
+					p1.Next = p2.Next
+					p2 = p1.Next
 					break
 				}
 			}
-		} else {
-			n1 = n1.Next
-			n2 = n2.Next
 		}
 	}
-	return root.Next
+	return newHdead.Next
 }
 
 // @lc code=end

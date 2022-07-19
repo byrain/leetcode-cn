@@ -14,24 +14,29 @@
  */
 func deleteDuplicates(head *ListNode) *ListNode {
 	if head == nil {
-		return head
+		return nil
 	}
-	t := make(map[int]struct{})
-	l := head
-	t[head.Val] = struct{}{}
-	for {
-		if head.Next != nil {
-			if _, ok := t[head.Next.Val]; !ok {
-				t[head.Next.Val] = struct{}{}
-				head = head.Next
-			} else {
-				head.Next = head.Next.Next
-			}
+	newHdead := &ListNode{
+		Next: head,
+	}
+	p1 := newHdead
+	p2 := newHdead.Next
+	for p2 != nil && p2.Next != nil {
+		if p2.Val != p2.Next.Val {
+			p1 = p2
+			p2 = p2.Next
 		} else {
-			break
+			for {
+				p2 = p2.Next
+				if p2 == nil || p2.Next == nil || p2.Val != p2.Next.Val {
+					p1.Next = p2
+					p2 = p1.Next
+					break
+				}
+			}
 		}
 	}
-	return l
+	return newHdead.Next
 }
 
 // @lc code=end
